@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">sesao29-2</string>
+    <string name="ingredient3"><![CDATA[> 1 colher de chocolate em pó]]></string>
+    <string name="ingredient2"><![CDATA[> 100ml de leite]]></string>
+    <string name="ingredient1"><![CDATA[> 1 dose de espresso]]></string>
+    <string name="ingredient_title">Ingredientes</string>
+    <string name="description_drink">Uma simples e perfeita extraída dose de expresso misturado com leite fresco e chocolate fazem esta bebida deliciosa.</string>
+    <string name="text_heart">54214</string>
+    <string name="text_timer">15 minutos</string>
+    <string name="cappuccino">Cappuccino</string>
+</resources>

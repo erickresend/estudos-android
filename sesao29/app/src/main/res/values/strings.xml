@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">sesao29–1</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login">login</string>
+    <string name="registration_text">Ainda não é cadastrado? Cadastre-se!</string>
+</resources>

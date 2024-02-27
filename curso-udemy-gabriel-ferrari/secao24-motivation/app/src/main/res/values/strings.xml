@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">secao24</string>
+    
+    <string name="validation_madatory_name">Informe seu nome</string>
+</resources>

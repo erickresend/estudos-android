@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">sesao29-2</string>
+    <string name="ingredient3"><![CDATA[> 1 spoon of chocolate powder]]></string>
+    <string name="ingredient2"><![CDATA[> 100ml of milk]]></string>
+    <string name="ingredient1"><![CDATA[> 1 shot of espresso]]></string>
+    <string name="ingredient_title">Ingredients</string>
+    <string name="description_drink">A simple and perfect shot of espresso mixed with fresh milk and chocolate make this delicious drink.</string>
+    <string name="text_heart">54214</string>
+    <string name="text_timer">15 minutes</string>
+    <string name="cappuccino">Cappuccino</string>
+</resources>

@@ -1,0 +1,6 @@
+fun - Nomeclatura para criar funções
+var nome_variavel = "teste" - O kotlin entende que é uma variavel do tipo string
+var nome_variavel : String = "teste" - Deixando explicito o tipo
+val - Usado para criar variaveis constantes
+"Ola $nome $sobrenome" - $ usado com a variavel para escrever junto com uma string
+

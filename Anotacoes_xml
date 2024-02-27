@@ -1,0 +1,39 @@
+Medidas recomendadas
+sp para fontes
+dp para elementos
+wrap_content - adequa o tamanho ao conteudo do elemento
+match_parent - adequa o tamanho ao tamanho do elemento pai
+
+    # ViewGroup
+
+    ## Linear Layout
+
+orientation - vertical ou horizontal - a forma que o elementos do grupo vão se ajustar
+
+layout_weight - usado para definir quantas partes o elemento vai ter daquele espaço
+
+gravity - muda a posição referente a ele mesmo
+layout_gravity - muda a posição referente ao elemento pai
+
+HorizontalScrollView e ScrollView usando para criar uma barra de rolagem dos elementos caso a quantidade passe do tamanho da tela, lembrando que precisa criar um linearLoyoult dentro do scrollView e lá inserir os elementos
+
+view - elemento usado para criar linhas de separações
+
+editText - usado para criar caixa de escrita do usuario
+    hint - texto para facilitar o usuario saber o que deve escrever
+    imputType - o tipo de conteudo que será inserido
+
+imageView - Usada para inserir uma imagem na tela
+    src - indicar o caminho da imagem
+
+    ## RelativeLayout
+Nesse viewGroup não tem orientation
+
+A posição dos elementos sempre começa com layout_ diferente do linear que é gravity
+
+    ## ConstraintLayout
+bias - É uma maneira de definir a posição horizontal de um elemento, seu valor é entre 0 e 1, pelo que entendi só pode ser usado se os 4 lados tiver definido como parent
+circle - É uma forma de ajudar um elemento usando outro como base. O circle tem tres tipos, precisamos definir o elemento que sera a base, o raio do circulo e o angulo que o elemento vai ficar em relação ao elemento base.
+chain - Serve para alinhar 2 ou mais elementos de forma uniforme tanto na horizontal quanto vertival, lembrando que precisa fazer uma ligação entre eles de start/ end e end/start
+
+centralizar elementos em outro, basta colocar o start e end com o id do elemento

@@ -1,0 +1,7 @@
+### View Binding
+Adicionar essa linha no build.grandle
+    buildFeatures {
+           viewBinding = true
+       }
+
+var binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
