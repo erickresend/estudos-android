@@ -1,8 +1,10 @@
 package com.erickresend.aulao_008.repositories
 
-import com.erickresend.aulao_008.rest.RetrofitKotlin
+import com.erickresend.aulao_008.rest.RetrofitService
 
-class MainRepository constructor(private val retrofitKotlin: RetrofitKotlin) {
+class MainRepository constructor(private val retrofitService: RetrofitService) {
 
-    fun getAllLives() = retrofitKotlin.getAllLives()
+    // Esse repository é criado como boa pratica para caso mude a implementação da chamada a api
+    //não tenha que mudar tudo no código, basta mudar aqui
+    fun getAllLives() = retrofitService.getAllLives()
 }
