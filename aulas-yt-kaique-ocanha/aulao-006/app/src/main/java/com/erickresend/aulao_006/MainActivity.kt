@@ -1,11 +1,10 @@
 package com.erickresend.aulao_006
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erickresend.aulao_006.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.recyclerview
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initRecyclerView()
@@ -31,19 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
 
-        this.liveAdapter = LiveAdapter { live ->
-            opneLink(live.link)
-        }
+        this.liveAdapter = LiveAdapter()
 
-        binding.recyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        binding.recyclerview.adapter = liveAdapter
-
-        //recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
-        //recyclerview.adapter = this.liveAdapter
-    }
-
-    private fun opneLink(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(intent)
+        recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
+        recyclerview.adapter = this.liveAdapter
     }
 }
