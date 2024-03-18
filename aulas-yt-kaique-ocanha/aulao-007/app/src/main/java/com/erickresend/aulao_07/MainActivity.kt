@@ -24,10 +24,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.buttomGetSecond.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
-            intent.putExtra("TEXT_NAME", "name")
-        }
+
+            binding.textMudar.text = intent.getStringExtra("RESULT")
+
     }
 
 

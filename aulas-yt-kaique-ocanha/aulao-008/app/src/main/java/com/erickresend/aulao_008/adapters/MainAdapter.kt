@@ -1,11 +1,11 @@
 package com.erickresend.aulao_008.adapters
 
-import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.erickresend.aulao_008.R
 import com.erickresend.aulao_008.databinding.ResItemLiveBinding
 import com.erickresend.aulao_008.models.Live
 
@@ -43,8 +43,8 @@ class MainViewHolder(val binding: ResItemLiveBinding) : RecyclerView.ViewHolder(
         binding.author.text = live.author
 
         val requestOptions = RequestOptions()
-            .placeholder(R.drawable.i)
-            .error(android.R.drawable.ic_launcher_background)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
 
         Glide.with(itemView.context)
             .applyDefaultRequestOptions(requestOptions)

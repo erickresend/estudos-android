@@ -20,9 +20,9 @@ interface RetrofitService {
 
             retrofit.create(RetrofitService::class.java)
         }
-    }
 
-    fun getIntence(): RetrofitService {
-        return retrofitService
+        fun getInstance(): RetrofitService {
+            return retrofitService
+        }
     }
 }

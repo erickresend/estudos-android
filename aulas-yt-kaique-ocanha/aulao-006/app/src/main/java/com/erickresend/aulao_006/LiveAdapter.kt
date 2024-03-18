@@ -1,53 +1,41 @@
 package com.erickresend.aulao_006
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.erickresend.aulao_006.databinding.ActivityMainBinding
+import com.erickresend.aulao_006.databinding.ResItemLiveBinding
 import com.erickresend.aulao_006.models.Live
-import kotlinx.android.synthetic.main.res_item_live.view.author
-import kotlinx.android.synthetic.main.res_item_live.view.thumbnail
-import kotlinx.android.synthetic.main.res_item_live.view.title
 
-class LiveAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LiveAdapter : RecyclerView.Adapter<LiveAdapter.LiveViewHolder>() {
 
-    private var items : List<Live> = ArrayList()
+    private var items = mutableListOf<Live>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return LiveViewHolder(
-            LayoutInflater.from(parent.context).inflate(), parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LiveViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ResItemLiveBinding.inflate(inflater, parent, false)
+        return LiveViewHolder(binding)
+
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
-            is LiveViewHolder -> {
-                holder.bind(items[position])
-            }
-        }
+    override fun onBindViewHolder(holder: LiveViewHolder, position: Int) {
+        val live = items[position]
+        holder.bind(live)
     }
 
     fun setDataSet(lives : List<Live>) {
-        this.items = lives
+        this.items = lives.toMutableList()
+        notifyDataSetChanged()
     }
 
-    class LiveViewHolder constructor(
-        itemView : View
-    ): RecyclerView.ViewHolder(itemView){
-
-        // Para fazer essa referencia ao itens do xml que no grandle usamos id("kotlin-android-extensions")
-        private val liveTitle = itemView.title
-        private val liveAuthor = itemView.author
-        private val liveThumbnail = itemView.thumbnail
+    class LiveViewHolder(val binding: ResItemLiveBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(live : Live) {
-            liveTitle.text = live.title
-            liveAuthor.text = live.author
+            binding.title.text = live.title
+            binding.author.text = live.author
         }
     }
 }

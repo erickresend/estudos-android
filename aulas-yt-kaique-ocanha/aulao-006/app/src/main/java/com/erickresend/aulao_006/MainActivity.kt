@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erickresend.aulao_006.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.recyclerview
 
 class MainActivity : AppCompatActivity() {
-
-    // 48:09
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var liveAdapter: LiveAdapter
@@ -31,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         this.liveAdapter = LiveAdapter()
 
-        recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
-        recyclerview.adapter = this.liveAdapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.recyclerview.adapter = this.liveAdapter
     }
 }
