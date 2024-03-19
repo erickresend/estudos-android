@@ -1,0 +1,110 @@
+Room database é um orm android para acesso ao banco de dados
+
+### Adicionar pluguins e dependencias
+pluguins
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15" - Processador de anotações do kotlin
+dependencias
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.3")
+
+### Criar as data classes models
+Usar a notação @Entity nas models para reconhecer que é uma entidade no projeto, entre (tableName = "nome_da_tabela") caso queira colocar um nome diferente
+Entidades representam as tabelas no banco de dados
+
+@ColumnInfo(name = "nome_da_tabela")
+serve para informar o nome da coluna, se nao colocar essa anotacao fica como o nome da variavel, lembrando que é recomendado os nomes das tabelas ficarem separados por _ e nao por cammoncase
+
+@PrimaryKey(autoGenerate = true)
+para indicar que é a chave primaria e que será gerada automatica
+
+### Criar as interfaces data access object (DAO) com a anotação @Dao
+Aqui terá os metodos que fazem o acesso ao banco de dados, o CRUD, regras de negócio são tratadas na ViewModel
+
+Exemplos de metodos
+    @Insert
+    suspend fun insert(user: User)
+
+    @Query("SELECT COUNT(uid) FROM user")
+    suspend fun getTotalItems(): Long
+
+getAll sempre sera uma LiveData<List>
+
+### Criar uma classe abstrada AppDatabase do tipo RoomDatabase() que sera o ponto de acesso ao banco
+Colocar a anotação @Database(entities = [User::class], version = 1, exportSchema = false)
+Colocamos um array com todas as tabelas do nosso banco, no exemplo temos apenas uma. E tambem colocamos a versao do banco
+
+Criamos uma função abstrata de cada dao
+Ex: abstract fun userDao(): UserDao
+
+Apos isso copiamos um codigo que é padrao para todos os projetos, esse codigo serve para que tenha apenas uma instancia do banco
+
+companion object {
+        @Volatile
+        private var INSTANCE: PlayerDatabase? = null
+
+        fun getDatabase(context: Context): PlayerDatabase {
+            val tempInstance = INSTANCE
+            if(tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this){
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    PlayerDatabase::class.java,
+                    "player"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+    }
+
+### Criar uma classe repository, no construtor vamos criar uma variavel privada do DAO
+Aqui vamos fazer as funcoes do DAO, essa classe é caso mude a forma de acesso ao banco, não precise mudar em toda a apliação
+criamos uma variavel getAll do tipo LiveData<List<nome_do_model>>
+o insert é suspend fun
+
+### Agora criamos a classe ViewModel do tipo AndroidViewModel 
+aqui iniciamos o banco
+val getAllPlayers: LiveData<List<PlayerModel>>
+    private val repository: PlayerRepository
+
+    init {
+        val playerDao = PlayerDatabase.getDatabase(application).playerDao()
+        repository = PlayerRepository(playerDao)
+        getAllPlayers = repository.getAllPlayers
+    }
+
+e criamos as outras funcoes do CRUD
+
+### Na activity que vamos usar, vamos criar uma variavel de instancia tardia da ViewModel e inicializar ela no on create
+playerViewModel = ViewModelProvider(this).get(PlayerViewModel::class.java)
+e usar observe no getALl
+
+binding.recyclerviewPlayer.adapter = adapter --- Isso aqui é coisa do recyclerView, mas se quero listar preciso disso
+
+playerViewModel.getAllPlayers.observe(this, Observer { player ->
+            adapter.setPlayerList(player)
+        })
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Evento de clique no item do recyclerView
+
+-Colocar um id no card ou no layout que será clicado
+-Criar uma interface dentro da função adapter
+-Criar uma variavel com o tipo da interface dentro do contrutor da classe adapter
+-Dentro da função bin do ViewHolder ou dentro da função onBindViewHolder, nos vamos chamar o id do card e setar o clique, chamando a variavel do constrtor do adapter e passando o item(model) como parametro
+-Na activity, na criação da variavel do adapter vamos passar como parametro this, então implementamos a interface e extendemos o adapter.click(faz isso automatico)
+-N função override click colocamos a logica
+
+
+
+

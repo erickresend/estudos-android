@@ -1,0 +1,27 @@
+
+
+- Precisa ter um model
+
+- Criar uma classe ViewHolder com construtor binding do tipo RecyclerView.ViewHolder com parametro binding.root
+
+- Criar uma classe Adapter do tipo RecyclerView.Adapter passando entre <> a classe ViewHolder
+implementar as 3 funções
+
+criar uma mutableListOf<nome_do_model> para receber a lista que sera passada no recycler view
+criar uma fun para setar essa lista
+    private var list = mutableListOf<PlayerModel>()
+    fun setPlayerList(players: List<PlayerModel>) {
+        list = players.toMutableList()
+        notifyDataSetChanged()
+    }
+
+onCreateViewHolder - Aqui criamos o recyclerView
+Primeiro criamos a variavel que vai inflar o layaout que vai ser parametro de retorno
+    val binding = ResPlayersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    return PlayerViewHolder(binding)
+
+getItemCount - retornar o tamanho da lista, return list.size
+
+onBindViewHolder - aqui pegamos cada item da lista e passamos para a ViewHolder usar da forma que foi definida na funcao
+    val player = list[position]
+    holder.bind(player)

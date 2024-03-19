@@ -1,0 +1,32 @@
+- Na classe database, no construtor da função getDatabase, coloca esse parametro scope: CoroutineScope
+
+- Na classe application(onde fica as variaveis que podem ser chamada por todo aplicativo) criamos essa variavel
+val applicationScope = CoroutineScope(SupervisorJob())
+
+- Na classe database colocamos esse código
+private class WordDatabaseCallback(
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
+
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                scope.launch {
+                    populateDatabase(database.wordDao())
+                }
+            }
+        }
+
+        suspend fun populateDatabase(wordDao: WordDao) {
+            wordDao.deleteAll()
+
+            var word = Word("Fabricio")
+            wordDao.insert(word)
+            word = Word("John")
+            wordDao.insert(word)
+            word = Word("Kaique")
+            wordDao.insert(word)
+        }
+    }
+
+- Antes do .build() no getDatabase colocamos .addCallback(WordDatabaseCallback(scope))
