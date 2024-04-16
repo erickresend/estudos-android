@@ -1,0 +1,76 @@
+- Adicionar dependenncias do retrofit no gradle
+implementation("com.google.code.gson:gson:2.10.1")
+implementation("com.squareup.retrofit2:retrofit:2.9.0")
+implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+- Adicionar a permissão de acesso a internet no manifest
+<uses-permission android:name="android.permission.INTERNET"/>
+e no application adicionar a permissao de acesso a http sem ser https, caso seja http
+android:usesCleartextTraffic="true"
+
+- Criar uma pasta rest e uma interface RetrofitService e adicionar 
+companion object {
+
+        private val retrofitService: RetrofitService by lazy {
+
+            val retrofitService = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            retrofitService.create(RetrofitService::class.java)
+        }
+
+        fun getInstance() : RetrofitService {
+            return retrofitService
+        }
+    }
+
+- Injetar no contrutor do repository a classe RetrofitService
+class RecipeRepository(private val retrofitService: RetrofitService) {...
+
+- Dentro da interface retrofitService criamos as funções que fará as chamadas http com as anotações de cada metodo http
+Ex: Uma função que faz uma chamada e retorna uma lista do model Recipe
+@GET("/recipes")
+    fun getAllRecipes() : Call<List<Recipe>>
+
+- E dentro do repository criamos as funções chamando as funções do retrofit
+
+- Na view model
+
+Criamos 2 variaveis que serão usadas nos metodos implementados
+val recipesList = MutableLiveData<List<Recipe>>()
+val errorMessage = MutableLiveData<String>()
+
+Ex: chamada de get all
+Criamos uma variavel request que chama a função getAll do repository
+e fazemos uma enqueue passando um objeto do tipo callBack de lista do model e implementamos os 2 metodos
+
+fun getAllRecipes() {
+
+        val request = this.repository.getAllRecipes()
+
+        request.enqueue(object : Callback<List<Recipe>> {
+            override fun onResponse(call: Call<List<Recipe>>, response: Response<List<Recipe>>) {
+
+
+                if(response.code() == 200) {
+
+                    recipesList.postValue(response.body())
+
+                } else {
+                    errorMessage.postValue("Erro ao listar receitas ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Recipe>>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+- Na activity
+
+no onCreate o viewModelProvider normalmente
+
+no onResume fazemos as oberservações e os bindings
