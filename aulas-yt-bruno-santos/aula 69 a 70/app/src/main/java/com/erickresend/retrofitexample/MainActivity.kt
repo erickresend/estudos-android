@@ -1,6 +1,7 @@
-package com.erickresend.secao_34
+package com.erickresend.retrofitexample
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,23 +15,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val service = RetrofitClient.createPostService()
+        val service = RetrofitClient.createService(PostService::class.java)
         val call: Call<List<PostEntity>> = service.list()
-        call.enqueue(object : Callback<List<PostEntity>>{
-            override fun onResponse(
-                call: Call<List<PostEntity>>,
-                response: Response<List<PostEntity>>
-            ) {
+
+        call.enqueue(object : Callback<List<PostEntity>> {
+            override fun onResponse(call: Call<List<PostEntity>>, response: Response<List<PostEntity>>) {
+                Toast.makeText(applicationContext, "Ok", Toast.LENGTH_SHORT).show()
                 val list = response.body()
             }
 
             override fun onFailure(call: Call<List<PostEntity>>, t: Throwable) {
-                val s = ""
+                Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
             }
 
         })
-
-        val s = ""
-        val abc = 125
     }
 }

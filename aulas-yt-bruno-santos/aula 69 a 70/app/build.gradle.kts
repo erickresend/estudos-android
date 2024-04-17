@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.erickresend.secao_34"
+    namespace = "com.erickresend.retrofitexample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.erickresend.secao_34"
+        applicationId = "com.erickresend.retrofitexample"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
@@ -46,6 +46,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }

@@ -1,11 +1,13 @@
+- Antes de tudo seu projeto precisa ter um model, e colocar em cada coluna um @SerializedName("userId"), entre aspas é o nome da coluna que vem da API, geralmente são iguais mas é caso seja, diferentes ele faz a associação entre elas
+
 - Adicionar dependenncias do retrofit no gradle
 implementation("com.google.code.gson:gson:2.10.1")
-implementation("com.squareup.retrofit2:retrofit:2.9.0")
-implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+implementation("com.squareup.retrofit2:retrofit:2.9.0") - A dependencia do retrofit
+implementation("com.squareup.retrofit2:converter-gson:2.9.0") - Faz a conversao de json para o modelo
 
 - Adicionar a permissão de acesso a internet no manifest
 <uses-permission android:name="android.permission.INTERNET"/>
-e no application adicionar a permissao de acesso a http sem ser https, caso seja http
+e no application adicionar a permissao de acesso a http sem ser https, caso seja http a chamada
 android:usesCleartextTraffic="true"
 
 - Criar uma pasta rest e uma interface RetrofitService e adicionar 
@@ -23,6 +25,30 @@ companion object {
 
         fun getInstance() : RetrofitService {
             return retrofitService
+        }
+    }
+
+OU
+
+ompanion object {
+
+        private lateinit var INSTANCE: Retrofit
+        private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+
+        private fun getRetrofitInstance(): Retrofit {
+            val http = OkHttpClient.Builder()
+            if(!::INSTANCE.isInitialized) {
+                INSTANCE = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(http.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return INSTANCE
+        }
+
+        fun <T> createService(service: Class<T>): T {
+            return getRetrofitInstance().create(service)
         }
     }
 
@@ -45,6 +71,9 @@ val errorMessage = MutableLiveData<String>()
 Ex: chamada de get all
 Criamos uma variavel request que chama a função getAll do repository
 e fazemos uma enqueue passando um objeto do tipo callBack de lista do model e implementamos os 2 metodos
+
+onResponse - A chamada deu certo mas nao nescesariamente ela veio no status 200, aqui cai quando deu certo a chamada e não que retornou algo
+onFailure - Quando da problema na chamada
 
 fun getAllRecipes() {
 
