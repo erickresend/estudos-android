@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874870590054",
+    "project_id": "aplicativo-de-teste-469fa",
+    "storage_bucket": "aplicativo-de-teste-469fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874870590054:android:5a7fe730436f4488cc3ba7",
+        "android_client_info": {
+          "package_name": "com.erickresend.aplicativoteste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_7qztQTRteQQc6Lw0cgXzT6fD1Jp2JNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

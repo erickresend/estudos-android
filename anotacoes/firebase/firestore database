@@ -1,0 +1,47 @@
+- Dentro do projeto criado, clicar em build, firestore database, add database
+
+- Ir na documentacao e buscar a dependencia do Cloud Firestore para android e adicionar no grandle app
+
+GRAVAR DADOS
+
+        binding.btnGravarDadosDB.setOnClickListener { view ->
+
+            val usuariosMap = hashMapOf(
+                "nome" to "Erick",
+                "sobrenome" to "Resende",
+                "idade" to 30
+            )
+
+            db.collection("Usuários").document("Erick")
+                .set(usuariosMap).addOnCompleteListener {
+                    val snackbar = Snackbar.make(view, "Sucesso ao salvar dados os do usuário", Snackbar.LENGTH_SHORT)
+                    snackbar.setBackgroundTint(Color.BLUE)
+                    snackbar.show()
+                }.addOnFailureListener {
+
+                }
+        }
+
+LER DADOS
+
+        binding.btnLerDadosDB.setOnClickListener {
+            db.collection("Usuários").document("Erick")
+                .addSnapshotListener { value, error ->
+                if(value != null) {
+                    binding.textResultadoNome.text = value.getString("nome")
+                    binding.textResultadoSobrenome.text = value.getString("sobrenome")
+                    binding.textResultadoIdade.text = value.getLong("idade").toString()
+                }
+            }
+        }
+
+ATUALIZAR DADOS
+
+        binding.btnAtualizarDadosDB.setOnClickListener { view ->
+            db.collection("Usuários").document("Erick")
+                .update("sobrenome", "Amaral Resende", "idade", 31).addOnCanceledListener {
+                    val snackbar = Snackbar.make(view, "Sucesso ao atualizar os dados do usuário", Snackbar.LENGTH_SHORT)
+                    snackbar.setBackgroundTint(Color.BLUE)
+                    snackbar.show()
+                }
+        }

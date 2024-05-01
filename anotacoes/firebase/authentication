@@ -1,0 +1,66 @@
+- Ir na documentação do firebase para android e pegar a dependencia de autenticação e colocar no grandle app do projeto
+
+- No firebase clique no projeto, build, authentication, sign-method
+
+- Ativar o tipo de autenticação que eu quero (nesse caso é a de email)
+
+PARA CADASTRAR USUARIO
+
+- No código criar uma variavel da instancia do firebase authentication
+    private val auth = FirebaseAuth.getInstance()
+
+- Depois de fazer as validações de campo vazio, chamar o metodo auth criado com a instancia do firebase e passar o email e senha, adicionar 2 metodos
+addOnCompleteListener - para quando der tudo certo
+addOnFailureListener - para tratar as excessoes    
+
+    binding.btCadastrar.setOnClickListener { it ->
+
+            val email = binding.editEmail.text.toString()
+            val senha = binding.editSenha.text.toString()
+
+            if(email.isEmpty() || senha.isEmpty()) {
+                val snackbar = Snackbar.make(it, "Preencha todos os campos!", Snackbar.LENGTH_SHORT)
+                snackbar.setBackgroundTint(Color.RED)
+                snackbar.show()
+            } else {
+                auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { cadastro ->
+                    if(cadastro.isSuccessful) {
+                        val snackbar = Snackbar.make(it, "Sucesso ao cadastrar usuário!", Snackbar.LENGTH_SHORT)
+                        snackbar.setBackgroundTint(Color.BLUE)
+                        snackbar.show()
+                        binding.editEmail.setText("")
+                        binding.editSenha.setText("")
+                    }
+                }.addOnFailureListener { exception ->
+
+                    val mensagemErro = when(exception) {
+                        is FirebaseAuthWeakPasswordException -> "Digite uma senha com no mínimo 6 caracteres!"
+                        is FirebaseAuthInvalidCredentialsException -> "Digite um email válido!"
+                        is FirebaseAuthUserCollisionException -> "Esta conta já foi cadastrada!"
+                        is FirebaseNetworkException -> "Sem conexão com a internet!"
+                        else -> "Erro ao cadastrar usuário!"
+                    }
+                    val snackbar = Snackbar.make(it, mensagemErro, Snackbar.LENGTH_SHORT)
+                    snackbar.setBackgroundTint(Color.RED)
+                    snackbar.show()
+                }
+            }
+        }
+
+PARA LOGAR USUARIO
+
+- Bem parecido, cria a instancia do firebase auth, mas no lugar de usar createUserWithEmailAndPassword usa signInWithEmailAndPassword
+
+MANTER O USUÁRIO LOGADO
+
+- No onStart 
+val usuarioAtual = auth.currentUser
+
+        if(usuarioAtual != null) {
+            navegarTelaPrincipal() //função para ir para outra tela
+        }
+
+DESLOGAR USUARIO
+
+FirebaseAuth.getInstance().signOut()
+e mandar para a tela de login

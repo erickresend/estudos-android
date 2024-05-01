@@ -45,23 +45,25 @@ Ex: abstract fun userDao(): UserDao
 Apos isso copiamos um codigo que é padrao para todos os projetos, esse codigo serve para que tenha apenas uma instancia do banco
 
 companion object {
-        @Volatile
-        private var INSTANCE: PlayerDatabase? = null
+        private lateinit var INSTANCE: PlayerDatabase
 
         fun getDatabase(context: Context): PlayerDatabase {
-            val tempInstance = INSTANCE
-            if(tempInstance != null) {
-                return tempInstance
+            if (!Companion::INSTANCE.isInitialized) {
+                synchronized(PlayerDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(context, PlayerDatabase::class.java, "playerdb")
+                        .addMigrations(MIGRATION_1_2)
+                        .allowMainThreadQueries()
+                        .build()
+                }
             }
-            synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    PlayerDatabase::class.java,
-                    "player"
-                ).build()
-                INSTANCE = instance
-                return instance
+            return INSTANCE
+        }
+
+        private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("DELETE FROM player")
             }
+
         }
     }
 

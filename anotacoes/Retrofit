@@ -30,7 +30,7 @@ companion object {
 
 OU
 
-ompanion object {
+companion object {
 
         private lateinit var INSTANCE: Retrofit
         private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
