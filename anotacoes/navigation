@@ -1,0 +1,17 @@
+- Ir no resource manager na lateral e e add no + e escolher o nome, geralmente é navigation
+
+- Para adicionar a activity ou fragment, basta ir no xml do navigation e digitar layout, e associar o layout
+    tools:layout="@layout/fragment_example
+
+- O fragment da casinha é sempre o primeiro a ser executado, para alterar clica no fragment botao direito, set as start destination
+
+- Para adicionar o navigation em alguma activitty, vai no xml e clica em pallete e acha o navigation e arrasta para a activity
+
+- As navegações são feitas puxando setas e chamadas no onViewCreated do fragment
+findNavController().navigate(R.id.action_firstFragment_to_secondFragment)
+
+- Adicionar safe args no projeto
+https://developer.android.com/guide/navigation/use-graph/safe-args#kts
+
+rever a partir de 40 min como faz pra passar argumentos de um fragment pra outro
+https://www.youtube.com/watch?v=dvD4bUcc6vU&t=1495s

@@ -1,0 +1,4 @@
+CRIAR NA MÃO UM FRAGMENT
+
+- Criar a classe ExamnpleFragment que herda de Fragment, cria um layout fragment_example, no contrutor colocar da herança colocar o layout
+class ExampleFragment : Fragment(R.layout.fragment_example)
