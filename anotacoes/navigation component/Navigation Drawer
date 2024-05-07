@@ -51,3 +51,6 @@ private lateinit var _binding: ActivityNavigationDrawerExampleBinding ficando as
     }
 
 - Adicionar em cada item do menu os id dos fragments para poder ter a nevegação
+
+- Para a dicionar o botao de hamburguer na toolbar, basta adicionar o id da navigation drawer na variavel appBarConfiguration
+    val appBarConfiguration = AppBarConfiguration(navController.graph, _binding.drawerlayout)
