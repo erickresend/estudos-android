@@ -1,0 +1,21 @@
+Toolbal é a parte de cima do aplicativo
+
+- Dentro da activity que tem a navigation, adicione um toolbar no pallete
+
+ private lateinit var _binding: ActivityToolbalExampleBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = ActivityToolbalExampleBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
+
+        val navHostFragment = (supportFragmentManager.findFragmentById(_binding.fragmentContainerView.id)) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        _binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+- Com isso, ele já vai criar a parte de voltar na toolbar
+
+- Para alterar o nome que aparece, tem que ir no navigation e alterar o label do xml

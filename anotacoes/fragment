@@ -1,4 +1,16 @@
 CRIAR NA MÃO UM FRAGMENT
 
-- Criar a classe ExamnpleFragment que herda de Fragment, cria um layout fragment_example, no contrutor colocar da herança colocar o layout
-class ExampleFragment : Fragment(R.layout.fragment_example)
+- Criar a classe ExampleFragment que herda de Fragment, cria um layout fragment_example
+
+- Ativar o viewBinding no fragment, implementa a classe onCreateView e cria normalmente a classe binding e dentro do View passa o inflater como argumente do inflate e retorna o binding.root
+
+    private lateinit var _binding: HomeFragmentBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = HomeFragmentBinding.inflate(inflater)
+        return _binding.root
+    }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.erickresend.aulao_019.fragments.HomeFragment"
-        android:label="HomeFragment"
+        android:label="Início"
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
@@ -20,11 +20,11 @@
     <fragment
         android:id="@+id/notificationsFragment"
         android:name="com.erickresend.aulao_019.fragments.NotificationsFragment"
-        android:label="NotificationsFragment"
+        android:label="Notificaões"
         tools:layout="@layout/notifications_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.erickresend.aulao_019.fragments.ProfileFragment"
-        android:label="ProfileFragment"
+        android:label="Perfil"
         tools:layout="@layout/profile_fragment" />
 </navigation>

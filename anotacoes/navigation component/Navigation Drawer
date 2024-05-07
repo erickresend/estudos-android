@@ -1,0 +1,53 @@
+- Cria uma activity
+
+- Insira isso no código
+private lateinit var _binding: ActivityNavigationDrawerExampleBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = ActivityNavigationDrawerExampleBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
+
+        val navHostFragment = (supportFragmentManager.findFragmentById(_binding.fragmentContainerView.id)) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        _binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+- O xml tem que começar como DrawerLayout e não liner ou constrant
+
+- Caso tenha uma toolbar, tem que colocar ela dentro de outra view group
+
+- Adicionar um navigation view no xml
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent" />
+
+- Nesse momento podemos arrastar e ver o navigation drawer em branco
+
+- Para adicionar itens nessa tela em branco, vamos no resource manager, e criamos um menu
+
+- No navigation view adicionar o meu
+    app:menu="@menu/example_menu"
+
+- Adicionar no codigo _binding.navView.setupWithNavController(navController)
+
+private lateinit var _binding: ActivityNavigationDrawerExampleBinding ficando assim
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = ActivityNavigationDrawerExampleBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
+
+        val navHostFragment = (supportFragmentManager.findFragmentById(_binding.fragmentContainerView.id)) as NavHostFragment
+        val navController = navHostFragment.navController
+        _binding.navView.setupWithNavController(navController)
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        _binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+- Adicionar em cada item do menu os id dos fragments para poder ter a nevegação
